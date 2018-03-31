@@ -59,7 +59,7 @@ We show that this is analogous to the WMA with $D$ experts where $v_t$ is the lo
 For the FoReL algorithm:
 \begin{align*}
     w_t &= \argmin_{w} \left( \sum_{i=1}^{t-1} f_i(w) + R(w) \right) &\qquad\\
-    &= \argmin_{w} \left( \sum_{i=1}^{t-1} \langle w,v_i \rangle + \frac{1}{\eta} \sum_{j=1}^{D} w_j \right) &\qquad \text{Substituting regularizer and loss terms}\\
+    &= \argmin_{w} \left( \sum_{i=1}^{t-1} \langle w,v_i \rangle + \frac{1}{\eta} \sum_{j=1}^{D} w_j \log w_j \right) &\qquad \text{Substituting regularizer and loss terms}\\
 \end{align*}
 
 We need to find the optimal value of $w$ under the constraint $\sum_j w = 1$. We use the lagrange multiplier method.
@@ -78,7 +78,11 @@ Solving for $w$,
     w_{j,t}    &= \frac{e^{-\eta \sum_{i=1}^{t-1}v_{i,j}}}{\sum_{j=1}^{D}e^{-\eta \sum_{i=1}^{t-1}v_{i,j}}} &\qquad \text{This is because we choose $\lambda$ such that the constraint is satisfied}\\
 \end{align*}
 
-This is the exact same expression obtained in WMA, where $v_{i,j}$ in the loss suffered by Expert $j$ in round $i$.
+This is the exact same expression obtained in WMA, where $v_{i,j}$ in the loss suffered by Expert $j$ in round $i$. The $\eta$ here is the same as the $\eta$ in WMA. The optimal $\eta$ will thus be
+
+\[
+    \eta^* = \sqrt{\frac{2 \log D}{T}}
+    \]
 
 \newpage
 \section*{Question 2}
