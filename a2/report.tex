@@ -159,6 +159,14 @@ Next we see the variation of the number of mistakes made ny the winnow algorithm
 \includegraphics[scale=0.4]{q6b}
 \caption{Performance of the winnow algorithm with various learning rates}
 \end{figure}
+\clearpage
+\section*{Question 7}
+We compare the performance of OGD and OMD. OGD behaves as expected, making a lot of errors initially. The regret finally flattens out, implying that the algorithm is correct on most of the new data. The implementation of OMD is possibly incorrect. The 95\% confidence intervals are plotted by doing multiple runs where a new dataset is generated and shuffled everytime.
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.3]{q7}
+\caption{Performance of the OGD and OMD algorithms}
+\end{figure}
 %
 %\newpage
 %
