@@ -1,7 +1,7 @@
 
 # coding: utf-8
 
-# In[21]:
+# In[54]:
 
 
 import numpy as np
@@ -9,6 +9,56 @@ import matplotlib.pyplot as plt
 from numpy.linalg import norm as norm
 import scipy as sp
 import scipy.stats
+
+
+# In[67]:
+
+
+def compute_margin_estimate():
+    m = 0.0
+    for i in range(20):
+        A = np.random.normal([-2,-2], np.sqrt(0.5), [10000,2])
+        B = np.random.normal([-10,-10], np.sqrt(0.25), [10000,2])
+        p1 = np.array([-6,0])
+        p2 = np.array([0,-6])
+        min_d1 = 10
+        for p3 in A:
+            d = norm(np.cross(p2-p1, p1-p3))/norm(p2-p1)
+            min_d1 = min(min_d1,d)
+
+        min_d2 = 10
+        for p3 in B:
+            d = norm(np.cross(p2-p1, p1-p3))/norm(p2-p1)
+            min_d2 = min(min_d2,d)
+        m+= min_d1+min_d2
+    return m/40
+
+
+# In[68]:
+
+
+compute_margin_estimate()
+
+
+# In[76]:
+
+
+def compute_estimated_max_norm():
+    m = 0.0
+    for i in range(20):
+        B = np.random.normal([-10,-10], np.sqrt(0.25), [10000,2])
+        B = np.c_[B,np.ones_like(B[:,0])]
+        max_norm = 0
+        for b in B:
+            max_norm = max(max_norm,norm(b))
+        m+= max_norm
+    return m/20
+
+
+# In[77]:
+
+
+compute_estimated_max_norm()
 
 
 # In[22]:
@@ -142,11 +192,11 @@ def generate_results(eta_w = 0.001):
         ax.set_xlim([-12,3])
         ax.set_ylim([-12,3])
     
-    plt.savefig("q6.png")
+    plt.savefig("q6a.png")
     plt.show()
 
 
-# In[8]:
+# In[82]:
 
 
 generate_results(eta_w=2e-2)
